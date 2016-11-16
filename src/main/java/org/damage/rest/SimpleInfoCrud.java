@@ -3,6 +3,7 @@ package org.damage.rest;
 import org.damage.info.Info;
 import org.damage.info.InfoService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -22,6 +23,7 @@ public class SimpleInfoCrud {
     }
 
     @PostMapping
+    @ResponseStatus(HttpStatus.CREATED)
     public Info addInfo(@RequestBody final Info info) {
         infoService.addNewInfo(info);
         return info;

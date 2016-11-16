@@ -31,8 +31,11 @@ public class InfoService {
 
     public String addNewInfo(Info newInfo) {
         String newInfoId = newInfo.getName();
+        if (newInfoId == null || newInfoId.isEmpty()) {
+            throw new IllegalArgumentException("Info.name cannot be null");
+        }
         if (infoMap.containsKey(newInfoId)) {
-            throw new IllegalArgumentException("Info already present");
+            throw new ConflictException(Info.class, newInfoId);
         }
         infoMap.put(newInfoId, newInfo);
         return newInfoId;

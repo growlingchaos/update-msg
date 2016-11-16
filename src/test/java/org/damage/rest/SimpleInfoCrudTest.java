@@ -19,7 +19,7 @@ public class SimpleInfoCrudTest {
     private TestRestTemplate restTemplate;
 
     @Test
-    public void infoWithIdOneShouldBe111YearsOld() throws Exception {
+    public void infoWithIdOneShouldBe101YearsOld() throws Exception {
         ResponseEntity<Info> entity = restTemplate.getForEntity("/info/one", Info.class);
 
         Assertions.assertThat(entity.getStatusCode()).isEqualTo(HttpStatus.OK);
@@ -39,5 +39,13 @@ public class SimpleInfoCrudTest {
                                                                  Info.class);
 
         Assertions.assertThat(entity.getStatusCode()).isEqualTo(HttpStatus.CONFLICT);
+    }
+
+    @Test
+    public void addingAnInfoWithoutIdShouldBeABadRequest() throws Exception {
+        ResponseEntity<Info> entity = restTemplate.postForEntity("/info", new Info(null, 0),
+                                                                 Info.class);
+
+        Assertions.assertThat(entity.getStatusCode()).isEqualTo(HttpStatus.BAD_REQUEST);
     }
 }
