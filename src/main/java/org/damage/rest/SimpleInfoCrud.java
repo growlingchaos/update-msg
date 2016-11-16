@@ -5,7 +5,8 @@ import org.damage.info.InfoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-@RestController("/info")
+@RestController
+@RequestMapping("/info")
 public class SimpleInfoCrud {
 
     private final InfoService infoService;

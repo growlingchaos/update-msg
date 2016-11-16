@@ -20,7 +20,7 @@ public class SimpleInfoCrudTest {
 
     @Test
     public void addingAnExistingInfoShouldReturnConflict() throws Exception {
-        ResponseEntity<Info> entity = restTemplate.postForEntity("/", new Info("one", 1),
+        ResponseEntity<Info> entity = restTemplate.postForEntity("/info", new Info("one", 1),
                                                                  Info.class);
 
         Assertions.assertThat(entity.getStatusCode()).isEqualTo(HttpStatus.CONFLICT);
