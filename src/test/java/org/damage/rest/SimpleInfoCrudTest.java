@@ -19,6 +19,21 @@ public class SimpleInfoCrudTest {
     private TestRestTemplate restTemplate;
 
     @Test
+    public void infoWithIdOneShouldBe111YearsOld() throws Exception {
+        ResponseEntity<Info> entity = restTemplate.getForEntity("/info/one", Info.class);
+
+        Assertions.assertThat(entity.getStatusCode()).isEqualTo(HttpStatus.OK);
+        Assertions.assertThat(entity.getBody()).isEqualTo(new Info("one", 101));
+    }
+
+    @Test
+    public void unknownIdShouldGet404() throws Exception {
+        ResponseEntity<Info> entity = restTemplate.getForEntity("/info/six", Info.class);
+
+        Assertions.assertThat(entity.getStatusCode()).isEqualTo(HttpStatus.NOT_FOUND);
+    }
+
+    @Test
     public void addingAnExistingInfoShouldReturnConflict() throws Exception {
         ResponseEntity<Info> entity = restTemplate.postForEntity("/info", new Info("one", 1),
                                                                  Info.class);
